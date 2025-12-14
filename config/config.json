@@ -1,0 +1,39 @@
+{
+  "database_config": {
+    "host": "mysql",
+    "port": 3306,
+    "user": "appuser",
+    "password": "apppassword",
+    "database": "pyexample"
+  },
+  "queries": {
+    "people_select": {
+      "table": "people",
+      "key_column": "id",
+      "columns": ["first_name", "last_name"],
+      "use_prepared_statement": false,
+      "test_cases": [
+        {
+          "name": "normal_case",
+          "key_value": 1,
+          "description": "Normal key value, expecting good results"
+        },
+        {
+          "name": "sqli_apostrophe",
+          "key_value": "'",
+          "description": "Single apostrophe attack, expecting SQL error"
+        },
+        {
+          "name": "sqli_or_always_true",
+          "key_value": "1 OR 1=1",
+          "description": "OR 1=1 attack, expecting all records"
+        },
+        {
+          "name": "sqli_union",
+          "key_value": "1 UNION SELECT username, password FROM users--",
+          "description": "UNION attack, expecting users table data"
+        }
+      ]
+    }
+  }
+}

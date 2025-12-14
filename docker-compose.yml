@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: pyexample
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppassword
+    ports:
+      - "3307:3306" #MySQL was already running on 3306 on my computer, so changed port mapping to 3307
+    volumes:
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  app:
+    build: .
+    container_name: python_app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./python:/app/python
+      - ./config:/app/config
+      - ./output:/app/output
+    command: tail -f /dev/null  
+
+volumes:
+  mysql_data:
