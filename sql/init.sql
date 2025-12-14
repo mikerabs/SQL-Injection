@@ -30,7 +30,7 @@ INSERT INTO users (username, password, email) VALUES
 ('charlie_brown', 'hashed_password_5', 'charlie@example.com'),
 ('diana_prince', 'hashed_password_6', 'diana@example.com'),
 ('george_miller', 'hashed_password_7', 'george@example.com'),
-('fiona_garcia', 'an_actual_password_thats_different', 'fiona@example.com'),
+('fiona_garcia', 'an_actual_password_thats_different', 'fiona@example.com'), -- let's spice it up
 ('george_martin', 'hashed_password_9', 'george@example.com'),
 ('hannah_clark', 'hashed_password_10', 'hannah@example.com');
 
